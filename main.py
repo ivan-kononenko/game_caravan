@@ -34,6 +34,8 @@ class Deck:
         for suit in SUITS:
             for rank in RANKS:
                 self.cards.append(f"{rank}{suit}")
+        self.cards.append("RJ")
+        self.cards.append("BJ")
 
     def shuffle(self):
         return random.shuffle(self.cards)
@@ -45,3 +47,4 @@ if __name__ == "__main__":
     print(deck.cards)
     deck.shuffle()
     print(deck.cards)
+    print(len(deck.cards))
