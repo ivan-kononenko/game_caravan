@@ -24,7 +24,15 @@ RANKS = (
 
 
 class Card:
-    pass
+    value = None
+    holder = None
+
+    def __init__(self, value, holder="deck"):
+        self.value = value
+        self.holder = holder
+
+    def __str__(self):
+        return f"{self.value} at {self.holder}"
 
 
 class Deck:
@@ -33,9 +41,9 @@ class Deck:
     def __init__(self):
         for suit in SUITS:
             for rank in RANKS:
-                self.cards.append(f"{rank}{suit}")
-        self.cards.append("RJ")
-        self.cards.append("BJ")
+                self.cards.append(Card(f"{rank}{suit}"))
+        self.cards.append(Card("RJ"))
+        self.cards.append(Card("BJ"))
 
     def shuffle(self):
         return random.shuffle(self.cards)
@@ -44,7 +52,6 @@ class Deck:
 if __name__ == "__main__":
     print("Hi Caravan!")
     deck = Deck()
-    print(deck.cards)
     deck.shuffle()
-    print(deck.cards)
-    print(len(deck.cards))
+    for card in deck.cards[:5]:
+        print(card)
