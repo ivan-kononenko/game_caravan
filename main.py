@@ -30,7 +30,7 @@ class Player:
         self.deck = Deck
 
     def give_hand(self):
-        self.hand.append(self.deck.cards[:8])
+        self.hand += self.deck.cards[:8]
         return self.hand
 
 
@@ -73,7 +73,7 @@ if __name__ == "__main__":
     deck = Deck()
     deck.shuffle()
     print(deck)
-    for card in deck.cards[:0]:
+    for card in deck.cards[:3]:
         print(card)
 
     p1 = Player()
