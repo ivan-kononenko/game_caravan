@@ -82,7 +82,7 @@ class Deck:
     def put_card(self, caravan_no):
         what_card = 3
         cards_in_hand = self.get_cards("hand")
-        self.cards[what_card].holder = caravan_no
+        cards_in_hand[what_card].holder = caravan_no
 
 
 if __name__ == "__main__":
