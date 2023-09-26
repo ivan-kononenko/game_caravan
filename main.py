@@ -23,6 +23,17 @@ RANKS = (
 )
 
 
+class Player:
+    hand = []
+
+    def __init__(self):
+        self.deck = Deck
+
+    def give_hand(self):
+        self.hand.append(self.deck.cards[:8])
+        return self.hand
+
+
 class Card:
     value = None
     holder = None
@@ -50,18 +61,25 @@ class Deck:
 
     def __str__(self):
         #list amount of cards currently in deck
-        print(f"Deck currently has {len(self.cards)} cards.")
+        return f"Deck currently has {len(self.cards)} cards."
 
     def deal(self, holder):
         #receives list of players(p1, p2 and so on) and amount of card to give out to each player. Assign cards to player
-        print(f"{self.value} at {self.holder}")
+        return f"{self.value} at {self.holder}"
 
 
 if __name__ == "__main__":
     print("Hi Caravan!")
     deck = Deck()
     deck.shuffle()
-    for card in deck.cards[:5]:
+    print(deck)
+    for card in deck.cards[:0]:
         print(card)
 
-    print(deck)
+    p1 = Player()
+    p2 = Player()
+    p1.give_hand()
+    for card in p1.hand:
+        print(card)
+
+
