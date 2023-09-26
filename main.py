@@ -56,16 +56,33 @@ class Deck:
         self.cards.append(Card("RJ"))
         self.cards.append(Card("BJ"))
 
-    def shuffle(self):
-        return random.shuffle(self.cards)
-
     def __str__(self):
-        #list amount of cards currently in deck
         return f"Deck currently has {len(self.cards)} cards."
 
-    def deal(self, holder):
-        #receives list of players(p1, p2 and so on) and amount of card to give out to each player. Assign cards to player
-        return f"{self.value} at {self.holder}"
+    def shuffle(self):
+        """
+        Randomize deck
+        """
+        return random.shuffle(self.cards)
+
+    def get_cards(self, location):
+        result_cards = []
+        for card in self.cards:
+            if card.holder == location:
+                result_cards.append(card)
+        return result_cards
+
+    def deal(self):
+        """
+        Initial deal. Assign cards to player
+        """
+        for card in self.cards[:8]:
+            card.holder = "hand"
+
+    def put_card(self, caravan_no):
+        what_card = 3
+        cards_in_hand = self.get_cards("hand")
+        self.cards[what_card].holder = caravan_no
 
 
 if __name__ == "__main__":
@@ -73,13 +90,30 @@ if __name__ == "__main__":
     deck = Deck()
     deck.shuffle()
     print(deck)
-    for card in deck.cards[:3]:
-        print(card)
+    deck.deal()
 
-    p1 = Player()
-    p2 = Player()
-    p1.give_hand()
-    for card in p1.hand:
+    for card in deck.cards[:20]:
         print(card)
+    num_cards_in_hand = len(deck.get_cards('hand'))
+    print(f"Cards in hand: {num_cards_in_hand}")
+
+    num_cards_in_deck = len(deck.get_cards('deck'))
+    print(f"Cards in hand: {num_cards_in_deck}")
+
+    deck.put_card("caravan_1")
+
+    for card in deck.cards[:20]:
+        print(card)
+    num_cards_in_hand = len(deck.get_cards('hand'))
+    print(f"Cards in hand: {num_cards_in_hand}")
+
+    num_cards_in_deck = len(deck.get_cards('deck'))
+    print(f"Cards in hand: {num_cards_in_deck}")
+
+    # p1 = Player()
+    # p2 = Player()
+    # p1.give_hand()
+    # for card in p1.hand:
+    #     print(card)
 
 
