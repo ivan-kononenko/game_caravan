@@ -4,9 +4,13 @@
 
 
 # TODO
-- analyze the code, prepare questions
-- write __str__ for Deck class
-- write method "deal" of class Deck
+√ - analyze the code, prepare questions
+√ - write __str__ for Deck class
+√ - write method "deal" of class Deck
+- find error in function move_card_to_caravan
+- change funtion move_card_to_caravan:
+  add checking if location already occupied by a card.
+  If so, return error (raise exception)
 
 
 # Notes
