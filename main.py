@@ -57,7 +57,14 @@ class Deck:
         self.cards.append(Card("BJ"))
 
     def __str__(self):
-        return f"Deck currently has {len(self.cards)} cards."
+        num_in_deck = len(self.get_cards("deck"))
+        num_in_hand = len(self.get_cards("hand"))
+        num_in_caravans = (
+                len(self.get_cards("caravan_1"))
+                + len(self.get_cards("caravan_2"))
+                + len(self.get_cards("caravan_3"))
+        )
+        return f"Deck of {len(self.cards)} ({num_in_deck}, {num_in_hand}, {num_in_caravans}) cards."
 
     def shuffle(self):
         """
@@ -66,6 +73,9 @@ class Deck:
         return random.shuffle(self.cards)
 
     def get_cards(self, location):
+        """
+        Return cards reside in a particular location provided in the parameter
+        """
         result_cards = []
         for card in self.cards:
             if card.holder == location:
@@ -74,15 +84,26 @@ class Deck:
 
     def deal(self):
         """
-        Initial deal. Assign cards to player
+        Initial deal. Assign 8 cards to a player (move to the hand)
         """
         for card in self.cards[:8]:
             card.holder = "hand"
 
-    def put_card(self, caravan_no):
-        what_card = 3
+    def move_card_to_caravan(self, caravan_no):
+        """
+        Moves a card from the hand to a caravan, given in the parameter
+        """
         cards_in_hand = self.get_cards("hand")
-        cards_in_hand[what_card].holder = caravan_no
+        # Currently it is a random card
+        card_to_move = random.randint(0, len(cards_in_hand))
+        cards_in_hand[card_to_move - 1].holder = caravan_no
+
+    def move_card_to_hand(self):
+        """
+        Moves the first card in the deck to the hand
+        """
+        cards_in_deck = self.get_cards("deck")
+        cards_in_deck[0].holder = "hand"
 
 
 if __name__ == "__main__":
@@ -92,7 +113,7 @@ if __name__ == "__main__":
     print(deck)
     deck.deal()
 
-    for card in deck.cards[:20]:
+    for card in deck.cards[:]:
         print(card)
     num_cards_in_hand = len(deck.get_cards('hand'))
     print(f"Cards in hand: {num_cards_in_hand}")
@@ -100,15 +121,15 @@ if __name__ == "__main__":
     num_cards_in_deck = len(deck.get_cards('deck'))
     print(f"Cards in hand: {num_cards_in_deck}")
 
-    deck.put_card("caravan_1")
+    deck.shuffle()
+    deck.move_card_to_caravan("caravan_1")
+    deck.shuffle()
+    deck.move_card_to_caravan("caravan_1")
 
-    for card in deck.cards[:20]:
+    for card in deck.cards[:]:
         print(card)
-    num_cards_in_hand = len(deck.get_cards('hand'))
-    print(f"Cards in hand: {num_cards_in_hand}")
 
-    num_cards_in_deck = len(deck.get_cards('deck'))
-    print(f"Cards in hand: {num_cards_in_deck}")
+    print(deck)
 
     # p1 = Player()
     # p2 = Player()
