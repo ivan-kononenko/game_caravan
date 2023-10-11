@@ -30,6 +30,7 @@ POSITION = (
     "car3"
 )
 
+
 class Player:
     hand = []
 
@@ -101,9 +102,12 @@ class Deck:
         Moves a card from the hand to a caravan, given in the parameter
         """
         cards_in_hand = self.get_cards("hand")
-        # Currently it is a random card
-        card_to_move = random.randint(0, len(cards_in_hand)-1)
-        cards_in_hand[card_to_move].holder = caravan_no
+        card_to_move = int(input("Choose a card to move: "))-1
+        # Check the validity of the card
+        if 8 >= card_to_move >= 0:
+            cards_in_hand[card_to_move].holder = caravan_no
+        else:
+            raise Exception("Please enter a valid number!")
 
     def move_card_to_hand(self):
         """
@@ -119,33 +123,41 @@ class Deck:
 
 if __name__ == "__main__":
     print("Hi Caravan!")
+    '''
     deck = Deck()
     deck.shuffle()
     print(deck)
     deck.deal()
 
-    #for card in deck.cards[:]:
-        #print(card)
+    # for card in deck.cards[:]:
+        # print(card)
     num_cards_in_hand = len(deck.get_cards('hand'))
     print(f"Cards in hand: {num_cards_in_hand}")
 
     num_cards_in_deck = len(deck.get_cards('deck'))
     print(f"Cards in deck: {num_cards_in_deck}")
 
-    deck.shuffle()
-    deck.move_card_to_caravan("caravan_1")
-    deck.shuffle()
-    deck.move_card_to_caravan("caravan_1")
-
-    #for card in deck.cards[:]:
+    #for card in deck.get_cards('hand'):
     #    print(card)
+    # print(deck.get_cards('hand'))
 
-    print(deck)
+    # deck.move_card_to_caravan("car1")
 
-    # p1 = Player()
-    # p2 = Player()
-    # p1.give_hand()
-    # for card in p1.hand:
-    #     print(card)
+    #for card in deck.get_cards('car1'):
+    #   print(card)
+    '''
 
+    P1 = Player()
+    P2 = Player()
 
+    P1.deck = Deck()
+    P1.deck.shuffle()
+
+    P1.deck.deal()
+    for card in P1.deck.get_cards("hand"):
+        print(card)
+
+    P1.deck.move_card_to_caravan("car1")
+
+    for card in P1.deck.get_cards("car1"):
+        print(card)
