@@ -120,31 +120,34 @@ class Deck:
         else:
             raise Exception("Cannot give out a card to hand!")
 
+    def discard_card(self):
+        cards_in_hand = self.get_cards("hand")
+        card_to_discard = int(input("Please choose a card to discard"))-1
+        # Check the validity of the card
+        if 8 >= card_to_discard >= 0:
+            cards_in_hand[card_to_discard].holder = "deck"
+        else:
+            raise Exception("Please enter a valid number!")
+
+    def discard_caravan(self):
+        caravan_no = int(input("Enter a caravan to discard"))
+        cards_in_hand = self.get_cards(caravan_no)
+        caravan_to_discard = caravan_no
+        # Check the validity of the card
+        if 3 >= caravan_to_discard >= 0:
+            cards_in_hand[caravan_to_discard].holder = "deck"
+        else:
+            raise Exception("Please enter a valid number!")
+
+
 
 if __name__ == "__main__":
     print("Hi Caravan!")
     '''
-    deck = Deck()
-    deck.shuffle()
-    print(deck)
-    deck.deal()
-
-    # for card in deck.cards[:]:
-        # print(card)
-    num_cards_in_hand = len(deck.get_cards('hand'))
-    print(f"Cards in hand: {num_cards_in_hand}")
 
     num_cards_in_deck = len(deck.get_cards('deck'))
     print(f"Cards in deck: {num_cards_in_deck}")
 
-    #for card in deck.get_cards('hand'):
-    #    print(card)
-    # print(deck.get_cards('hand'))
-
-    # deck.move_card_to_caravan("car1")
-
-    #for card in deck.get_cards('car1'):
-    #   print(card)
     '''
 
     P1 = Player()
