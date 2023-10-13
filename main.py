@@ -37,10 +37,6 @@ class Player:
     def __init__(self):
         self.deck = Deck
 
-    def give_hand(self):
-        self.hand += self.deck.cards[:8]
-        return self.hand
-
 
 class Card:
     value = None
@@ -51,7 +47,7 @@ class Card:
         self.holder = holder
 
     def __str__(self):
-        return f"{self.value} at {self.holder}"
+        return f"{self.value}"  # at {self.holder} was here before
 
 
 class Deck:
@@ -97,12 +93,13 @@ class Deck:
         for card in self.cards[:8]:
             card.holder = "hand"
 
-    def move_card_to_caravan(self, caravan_no):
+    def move_card_to_caravan(self):
         """
         Moves a card from the hand to a caravan, given in the parameter
         """
-        cards_in_hand = self.get_cards("hand")
         card_to_move = int(input("Choose a card to move: "))-1
+        caravan_no = str(input("Choose a caravan to move to: "))
+        cards_in_hand = self.get_cards("hand")
         # Check the validity of the card
         if 8 >= card_to_move >= 0:
             cards_in_hand[card_to_move].holder = caravan_no
@@ -139,28 +136,74 @@ class Deck:
         else:
             raise Exception("Please enter a valid number!")
 
+    def game_option(self):
+        option = int(input("\nPlay a card(1), discard card(2) or discard a Caravan(3): "))
+        if option == 1:  # Move card to caravan
+            self.move_card_to_caravan()
+        elif option == 2:  # Discard card
+            self.discard_card()
+        elif option == 3:  # Discard caravan
+            self.discard_card()
 
+    def card_status(self, location):
+        '''
+        P1 Caravan 1: <card value>
+        P1 Caravan 2: <card value>
+        P1 Caravan 3: <card value>
+        P1 Hand: <card value>
+
+        P2 Caravan 1: <card value>
+        P2 Caravan 2: <card value>
+        P2 Caravan 3: <card value>
+        P2 Hand: <card value>
+        '''
+
+        status = self.get_cards(location)
+        print(f"\nAt {location} you have: ")
+        for card in status:
+            print(card, end=" ")
+
+    def player_status(self):
+        self.card_status("car1")
+        self.card_status("car2")
+        self.card_status("car3")
+        self.card_status("hand")
 
 if __name__ == "__main__":
-    print("Hi Caravan!")
-    '''
 
-    num_cards_in_deck = len(deck.get_cards('deck'))
-    print(f"Cards in deck: {num_cards_in_deck}")
+    # Init the game
+    game_status = 1
 
-    '''
-
+    # Init the players and their decks with hands
     P1 = Player()
     P2 = Player()
-
     P1.deck = Deck()
+    P2.deck = Deck()
     P1.deck.shuffle()
-
+    P2.deck.shuffle()
     P1.deck.deal()
-    for card in P1.deck.get_cards("hand"):
-        print(card)
+    P2.deck.deal()
+    while game_status != 0:
+        print("Hi Caravan!")
 
-    P1.deck.move_card_to_caravan("car1")
+        # Show game status
+        P1.deck.player_status()
 
-    for card in P1.deck.get_cards("car1"):
-        print(card)
+        # P1 turn
+        P1.deck.game_option()
+
+        # Show game status
+        P1.deck.player_status()
+
+        # P2 turn
+
+
+        # Check win conditions
+        game_status = 0
+'''
+
+num_cards_in_deck = len(deck.get_cards('deck'))
+print(f"Cards in deck: {num_cards_in_deck}")
+
+'''
+

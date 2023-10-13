@@ -12,8 +12,10 @@
  add checking if location already occupied by a card.
  If so, return error (raise exception)
 - Create player_turn function, which is self-describing(check Notes)
-- Implement rudimentary UI
-- Create main game cycle
+- √ - Implement rudimentary UI
+- √ - Create main game cycle
+- Finalise MGC
+- Playtest
 
 
 # Notes
