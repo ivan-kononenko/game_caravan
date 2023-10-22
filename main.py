@@ -143,7 +143,7 @@ class Deck:
         elif option == 2:  # Discard card
             self.discard_card()
         elif option == 3:  # Discard caravan
-            self.discard_card()
+            self.discard_caravan()
 
     def card_status(self, location):
         '''
@@ -193,13 +193,20 @@ if __name__ == "__main__":
         P1.deck.game_option()
 
         # Show game status
-        P1.deck.player_status()
+        # P1.deck.player_status()
+        print("______________________________")
+
+        # Show game status
+        P2.deck.player_status()
 
         # P2 turn
+        P2.deck.game_option()
 
+        # Show game status
+        P2.deck.player_status()
 
         # Check win conditions
-        game_status = 0
+        # game_status = 0
 '''
 
 num_cards_in_deck = len(deck.get_cards('deck'))
